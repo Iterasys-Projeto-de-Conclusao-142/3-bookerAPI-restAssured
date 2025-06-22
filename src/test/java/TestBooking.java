@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.notNullValue;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
@@ -102,7 +103,7 @@ public class TestBooking extends Common {
             .header("Cookie", "token=" + TestAuth.token)
             .body(jsonBody)
         .when()
-                .put(baseUrl + "/booking/" + bookingIdResponse)
+            .put(baseUrl + "/booking/" + bookingIdResponse)
         .then()
             .log().all()
             .statusCode(200)
@@ -113,6 +114,21 @@ public class TestBooking extends Common {
             .body("bookingdates.checkin", is(checkinDate))
             .body("bookingdates.checkout", is(checkoutDate))
             .body("additionalneeds", is(additionalNeeds))
+        ;
+    }
+
+    @Test
+    @Order(3)
+    public void testDeleteBooking(){
+        given()
+            .contentType(ct)
+            .log().all()
+            .header("Cookie", "token=" + TestAuth.token)
+        .when()
+            .delete(baseUrl + "/booking/" + bookingIdResponse)
+        .then()
+            .log().all()
+            .statusCode(201)
         ;
     }
 }
