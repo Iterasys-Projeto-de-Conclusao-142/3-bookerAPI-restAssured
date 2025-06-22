@@ -51,4 +51,5 @@ The `POST /booking` endpoint returns booking data inside a `booking` object, whi
 
 ---
 
+
 Project developed for learning purposes in API test automation. 
