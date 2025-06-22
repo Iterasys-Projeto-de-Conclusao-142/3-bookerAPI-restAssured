@@ -9,24 +9,35 @@ import org.junit.jupiter.api.Test;
 
 public class TestAuth extends Common {
 
-    @Test
-    public void testAuth() throws IOException {
+    public static String token;
 
-        String jsonBody = new String(Files.readAllBytes(
-            Paths.get("src/test/resources/json/userAuth.json")
-        ));
-        
-        String token = given()
-            .contentType(ct)
-            .body(jsonBody)
-        .when()
-            .post(baseUrl + "/auth")
-        .then()
-            .statusCode(200)
-            .body("token", notNullValue()) // Verifica se o token existe
-            .extract()
-            .path("token"); // Extrai o token da resposta
-        
-        System.out.println("Token recebido: " + token);
+    // Método utilitário para gerar e retornar o token
+    public static String gerarToken() {
+        try {
+            String jsonBody = new String(Files.readAllBytes(
+                Paths.get("src/test/resources/json/userAuth.json")
+            ));
+
+            token = given()
+                .contentType(ct)
+                .body(jsonBody)
+            .when()
+                .post(baseUrl + "/auth")
+            .then()
+                .statusCode(200)
+                .body("token", notNullValue())
+                .extract()
+                .path("token");
+
+            System.out.println("Token gerado: " + token);
+            return token;
+        } catch (IOException e) {
+            throw new RuntimeException("Erro ao gerar token", e);
+        }
+    }
+
+    @Test
+    public void testAuth() {
+        gerarToken();
     }
 }

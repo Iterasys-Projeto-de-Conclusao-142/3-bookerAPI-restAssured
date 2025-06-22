@@ -1,0 +1,4 @@
+firstName,lastName,totalPrice,depositPaid,checkinDate,checkoutDate,additionalNeeds
+James,Bond,1250,true,2025-06-23,2025-07-22,Breakfast
+Angus,MacGyver,30000,false,1985-09-29,1986-05-21,All meal included
+Ethan,Hunt,2600,true,2025-03-22,2025-03-30,Nothing especial
